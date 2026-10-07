@@ -68,7 +68,6 @@ export async function authRoutes(app: FastifyInstance) {
                 status: "ok",
                 message: "User logged in successfully",
                 user,
-                token,
             };
         } catch (error) {
             if (error instanceof Error && error.message === "Invalid credentials") {
