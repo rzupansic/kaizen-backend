@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790960036660,
+      "tag": "0000_handy_mikhail_rasputin",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790960145265,
+      "tag": "0001_absurd_mindworm",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790960327082,
+      "tag": "0002_yielding_random",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790960630529,
+      "tag": "0003_condemned_gabe_jones",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791307789529,
+      "tag": "0004_thin_mad_thinker",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791316959215,
+      "tag": "0005_lush_jack_power",
+      "breakpoints": true
+    }
+  ]
+}
