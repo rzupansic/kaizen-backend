@@ -1,9 +1,10 @@
 import { FastifyInstance } from "fastify";
-import { comparePassword, hashPassword, loginUser, registerUser } from "../services/authService.js";
+import { comparePassword, hashPassword, getUserById, loginUser, registerUser } from "../services/authService.js";
 import { z } from "zod";
 import { AUTH_COOKIE_NAME, authCookieOptions } from "../utils/authCookie.js";
 import { createToken, verifyToken } from "../utils/jwt.js";
 import { blacklistToken } from "../utils/tokenBlacklist.js";
+import { authenticate } from "../hooks/auth.js";
 
 const registerUserSchema = z.object({
     email: z.string().email(),
@@ -81,6 +82,21 @@ export async function authRoutes(app: FastifyInstance) {
         }
     });
 
+    app.get("/me", { preHandler: authenticate }, async (request, reply) => {
+        const user = await getUserById(request.user.id);
+        if (!user) {
+            reply.code(401).send({
+                status: "error",
+                message: "Unauthorized",
+            });
+            return;
+        }
+        return {
+            status: "ok",
+            user,
+        };
+    });
+
     app.post("/logout", async (request, reply) => {
         const token = request.cookies[AUTH_COOKIE_NAME];
 
@@ -90,6 +106,7 @@ export async function authRoutes(app: FastifyInstance) {
                 blacklistToken(token, expiresAt);
             } catch {
                 // Clear the cookie even when the token is already invalid.
+                reply.clearCookie(AUTH_COOKIE_NAME, authCookieOptions);
             }
         }
 

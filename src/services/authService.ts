@@ -35,6 +35,14 @@ export async function registerUser(email: string, password: string) {
 }
 }
 
+export async function getUserById(id: number) {
+    const result = await pool.query(
+        `SELECT id, email FROM users WHERE id = $1`,
+        [id],
+    );
+    return result.rows[0] ?? null;
+}
+
 export async function loginUser(email: string, password: string) {
     const user = await pool.query(`
         SELECT id, email, password_hash
